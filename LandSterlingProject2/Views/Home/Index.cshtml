@@ -10,9 +10,9 @@
         <form action="~/Home/Properties" method="GET">
             <h4>i'm looking for</h4>
             <div class="notes">
-                <p class="one">
+                <div class="one col-6">
                     @*property type <i class="ps-3 fa-solid fa-caret-down"></i>*@
-                    <select class="selectpicker search-fields one" name="PropertyType">
+                    <select class="selectpicker search-fields three" name="PropertyType">
                         <option>Property Type</option>
                         @if (ViewBag.tbProperty_Masters != null)
                         {
@@ -23,10 +23,10 @@
                             }
                         }
                     </select>
-                </p>
-                <div class="three">
+                </div>
+                <div class="one col-6">
                     @*<input type="text" placeholder="enter location" />*@
-                    <select class="selectpicker search-fields three" style="width:222px;padding:5px;margin:1px" name="Enter Location">
+                    <select class="selectpicker search-fields three" style="width:222px;padding:5px;margin:1px" name="Location">
                         <option>Enter Location</option>
                         @if (ViewBag.cities != null)
                         {
@@ -41,9 +41,9 @@
                 </div>
             </div>
             <div class="notes">
-                <p class="one">
+                <div class="tow col-4">
                     @*beds <i class="ps-3 fa-solid fa-caret-down"></i>*@
-                    <select class="one" name="Bods">
+                    <select class=" three" name="Beds" style="width:200px;padding:10px;margin:1px" >
                         <option>Beds</option>
                         @if (ViewBag.eBedroom_Masters != null)
                         {
@@ -55,13 +55,36 @@
 
                         }
                     </select>
-                </p>
+                </div>
                 <div class="notes">
-                    <p class="tow">
-                        <input type="text" class="tow" style="width:90%" name="min_Price" placeholder="Min Price" id="MinPrice" />
+                    <div class="tow col-2">
+                        <select class=" three" style="width:120px;padding:10px;margin:1px"  name="min_price">
+                            <option>Min Price</option>
+                            @if (ViewBag.pricesList != null)
+                            {
+                                foreach (var item in ViewBag.pricesList)
+                                {
+                                    <option style="display:inline"><b>@item.Roundoff_Value</b></option>
 
-                    </p>
-                    <p class="tow"> <input type="text" class="tow" name="max_Price" placeholder="Max Price" id="MaxPrice" /> </p>
+                                }
+
+                            }
+                       </select>
+                    </div>
+                    <div class="tow col-2">
+                        <select class=" three" name="max_price" style="width:120px;padding:10px;margin:1px" >
+                            <option>Max Price</option>
+                            @if (ViewBag.pricesList != null)
+                            {
+                                foreach (var item in ViewBag.pricesList)
+                                {
+                                    <option style="display:inline"><b>@item.Roundoff_Value</b></option>
+
+                                }
+
+                            }
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="search"><button>search</button></div>
@@ -134,13 +157,13 @@
                     {
 
                         <div class="offers-card col-lg-4 col-md-6 col-12 p-0" onclick="OnUnitClick(@{@Html.Raw(ViewBag.Properties[i].RecordId)})">
-                            <div class="image">
-                                <img img class="d-block w-100" src="@{@Html.Raw(ViewBag.Properties[i].ImagePath1)}" alt="freemyip.com/@{@Html.Raw(ViewBag.Properties[i].Name)}">
+                            <div class="image image1">
+                                <img img class="d-block w-100 image1" src="@{@Html.Raw(ViewBag.Properties[i].ImagePath1)}" alt="freemyip.com/@{@Html.Raw(ViewBag.Properties[i].Name)}">
 
                             </div>
                             <a href="~/Home/PropertyDetails?PropertyType=Unit&Id=@{@Html.Raw(ViewBag.Properties[i].RecordId)}" class="property-img">
 
-                                <div class="p-5">
+                                <div class="py-4 px-3">
                                     <h4 class="fw-bold">
                                         <a href="~/Home/PropertyDetails?PropertyType=Unit&Id=@{@Html.Raw(ViewBag.Properties[i].RecordId)}">@{@Html.Raw(ViewBag.Properties[i].Name)}</a>
                                     </h4>
@@ -303,9 +326,9 @@
         </div>
     </div>
 </div>
-       </div>
+       
 
-<section id="ContactUS">
+@*<section id="ContactUS">*@
     @Html.Partial("ContactUs")
     @*@Html.Action("ContactUs", "Home", new { path = "~/Contact.cshtml" })*@
-</section>
+@*</section>*@
