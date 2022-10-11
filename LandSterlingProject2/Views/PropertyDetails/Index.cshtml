@@ -1,0 +1,291 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@model LandSterlingProject2.Models.Emailmodel
+<link rel="stylesheet" href="~/css/PropertyDetails.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Beau+Rivage&family=Big+Shoulders+Display:wght@700&family=Lobster&family=Montserrat:wght@200;300;400;500;600;700;800&family=Oswald:wght@300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100&family=Rubik+Moonrocks&family=Work+Sans:wght@200&display=swap"
+      rel="stylesheet" />
+<!-- font awesome -->
+<script src="https://kit.fontawesome.com/a3583e071f.js" crossorigin="anonymous"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="~/js/Propertydetailsscript.js"></script>
+<style>
+    .carousel-item img{
+        max-height:550px;
+    }
+</style>
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-lg-9 col-md-12 col-sm-12 ">
+            <div class="slider-dev">
+                <div class="head-line">
+                    <h2>@{@Html.Raw((ViewBag.Property.Name.Contains(", Ref#")) ? ViewBag.Property.Name.Substring(0, ViewBag.Property.Name.IndexOf(", Ref#")) : ViewBag.Property.Name)}</h2>
+                    <h5>@{@Html.Raw(ViewBag.Property.Location)}</h5>
+                </div>
+                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="details">
+                        <button class="px-3 py-2" > <a href="#location">
+                            <img class="pr-2" src="~/images/Icon awesome-map-marker-alt.png"></img> Check
+                            location</a>
+                        </button>
+                        <button class="px-3 py-2"> <img class="pr-2" src="~/images/Group 13147.png"></img>Save</button>
+                        <button class="px-3 py-2"> <img class="pr-2" src="assets/icons/Group 13150.png"></img>Share</button>
+                    </div>
+                    <div class="carousel-inner">
+                        @if (ViewBag.Property.ImagePath1 != "")
+                        {
+                            <div class="carousel-item active">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath1)}" alt="First slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath2 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath2)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath3 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath3)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath4 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath4)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath5 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath5)}" alt="Second slide">
+                            </div>
+                        }
+
+                        @if (ViewBag.Property.ImagePath6 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath6)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath7 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath7)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath8 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath8)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath9 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath9)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath10 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath10)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath11 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath11)}" alt="Second slide">
+                            </div>
+                        }
+                        @if (ViewBag.Property.ImagePath12 != "")
+                        {
+                            <div class="carousel-item">
+                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Property.ImagePath12)}" alt="Second slide">
+                            </div>
+                        }
+
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div class="">
+
+                </div>
+
+            </div>
+            <div class="pr-5">
+                <div class="property-details border-bottom pb-4 pt-2">
+                    <div class="head-line ">
+                        <h2>@{@Html.Raw(ViewBag.Property.Price)}</h2>
+                    </div>
+                    <div class="contact-details ">
+                        <div class="pb-3">
+                            <span class="light-color-span pr-3"><img src="~/images/Untitled-2-02.png" class="pr-2">  @{@Html.Raw(ViewBag.Property.Rooms)}</span>
+                            <span class="light-color-span"><img src="~/images/Untitled-2-04.png" class="pr-2"> @{@Html.Raw(ViewBag.Property.Floor)}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="property-description border-bottom pb-4 pt-2">
+                    <h2>@{@Html.Raw((ViewBag.Property.Name.Contains(", Ref#")) ? ViewBag.Property.Name.Substring(0, ViewBag.Property.Name.IndexOf(", Ref#")) : ViewBag.Property.Name)}</h2>
+                    <p>@{@Html.Raw(ViewBag.Property.MarketingText)}</p>
+                </div>
+                <div class="property-information">
+                    <h2>Property Information </h2>
+                    <div>
+                        <div class="row border-bottom">
+                            <div class="col-4 row">
+                                <div class=" col-6">
+                                    <span>Type</span>
+                                </div>
+                                <div class=" col-6">
+                                    from data base
+                                </div>
+                            </div>
+                            <div class="col-8 row ">
+                                <div class=" col-4">
+                                    <span>Payment Plan</span>
+                                </div>
+                                <div class="col-8">
+                                    from database
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row border-bottom">
+                            <div class="col-4 row">
+                                <div class=" col-6">
+                                    <span>Purpos</span>
+                                </div>
+                                <div class=" col-6">
+                                    @{@Html.Raw(ViewBag.Property.PropertyType)}
+                                </div>
+                            </div>
+                            <div class="col-8 row">
+                                <div class=" col-4">
+                                    <span>location Pros</span>
+                                </div>
+                                <div class="col-8">
+                                    @{@Html.Raw(ViewBag.Property.Address)}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="rang pb-4 pt-2 ">
+                    <div class="Property-price">
+                        <div class="d-flex  justify-content-between pb-2">
+                            <div>
+                                <span class="range-title">Property price</span>
+                            </div>
+                            <div>
+                                <span class="range-value" id="property-price-span">0</span>
+                            </div>
+                        </div>
+                        <div class="rang-input w-100 pb-4">
+                            <input class="w-100 py-3" type="range" min="0" max="10000" value="0" onchange="PropertyPrice(this.value)">
+                        </div>
+                    </div>
+                    <div class="Down-Payment">
+                        <div class="d-flex  justify-content-between pb-2">
+                            <div>
+                                <span class="range-title"> "Down-Payment</span>
+                            </div>
+                            <div>
+                                <span class="range-value" id="Down-Payment-span">0</span>
+                            </div>
+                        </div>
+                        <div class="rang-input w-100 pb-4">
+                            <input class="w-100 py-3" type="range" min="0" max="10000" value="0" onchange="DownPayment(this.value)">
+                        </div>
+                    </div>
+                    <div class="Interest">
+                        <div class="d-flex  justify-content-between pb-2">
+                            <div>
+                                <span class="range-title">Interest</span>
+                            </div>
+                            <div>
+                                <span class="range-value" id="Interest-span">0</span>
+                            </div>
+                        </div>
+                        <div class="rang-input w-100 pb-4">
+                            <input class="w-100 py-3" type="range" min="0" max="100" value="0" onchange="Interest(this.value)">
+                        </div>
+                    </div>
+                    <div class="Loan-Duration">
+                        <div class="d-flex  justify-content-between pb-2">
+                            <div>
+                                <span class="range-title">Loan Duration</span>
+                            </div>
+                            <div>
+                                <span class="range-value" id="Loan-Duration-span">0</span>
+                            </div>
+                        </div>
+                        <div class="rang-input w-100 pb-4">
+                            <input class="w-100 py-3" type="range" min="0" max="50" value="0" onchange="LoanDuration(this.value)">
+                        </div>
+                    </div>
+                    <div class="row calculation-result-payment">
+                        <div class="col-6">
+                            <span>ADE</span><br>
+                            <h1 id="total-invest-value"></h1>
+                            <p>Total Interest Value</p>
+                        </div>
+                        <div class="col-6">
+                            <span>ADE</span><br>
+                            <h1 id="monthly-payment"></h1>
+                            <p>Monthly payment</p>
+                        </div>
+                    </div>
+                    <div>
+                        @using (Html.BeginForm("SendEmail", "PropertyDetails", FormMethod.Post))
+                        {
+                            <form>
+                                <input type="text" class="form-control form-input " name="Email">
+                                <input type="text" class="form-control form-input " name="MonthlyPayment">
+                                <input type="text" class="form-control form-input " name="InvestmentValue">
+
+                                <input type="submit" class="button px-3 py-1 my-3" />
+                            </form>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12">
+            @Html.Partial("Sidebar")
+        </div>
+
+    </div>
+</div>
+<div class="container-fluid" id="location">
+    <iframe class="w-100" src="https://maps.google.com/maps?q=@{@Html.Raw(ViewBag.Property.Latitude)},@{@Html.Raw(ViewBag.Property.Longitude)}&hl=es;z=14&amp;output=embed"></iframe>
+
+</div>
+
+

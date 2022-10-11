@@ -173,6 +173,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PropertyDetailsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -188,6 +189,7 @@
     <Compile Include="Models\eCountryCity_Master.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Emailmodel.cs" />
     <Compile Include="Models\eUnitCategory_Master.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -380,12 +382,59 @@
     <Content Include="CSS\bootstrap.rtl.min.css" />
     <Content Include="CSS\bootstrap.rtl.min.css.map" />
     <Content Include="CSS\fontawesome.min.css" />
+    <Content Include="CSS\PropertyDetails.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\1-02%402x.png" />
+    <Content Include="images\1-02.png" />
+    <Content Include="images\Aldar Mayan Onsite 800 x 600 px 3%402x.png" />
+    <Content Include="images\Aldar Mayan Onsite 800 x 600 px 3.png" />
+    <Content Include="images\Book Now-1.svg" />
+    <Content Include="images\Book Now-2.svg" />
+    <Content Include="images\Book Now-3.svg" />
+    <Content Include="images\Book Now-4.svg" />
+    <Content Include="images\Book Now-5.svg" />
+    <Content Include="images\Book Now.svg" />
+    <Content Include="images\call small.svg" />
+    <Content Include="images\call.svg" />
+    <Content Include="images\contacts.svg" />
+    <Content Include="images\CR_TheGroveBuilding5_CGI07_02%402x.png" />
+    <Content Include="images\CR_TheGroveBuilding5_CGI07_02.png" />
+    <Content Include="images\DAMAC Safa Two 800x600 px 19%402x.png" />
+    <Content Include="images\DAMAC Safa Two 800x600 px 19.png" />
+    <Content Include="images\Deyaar Tria  800x600 px 8%402x.png" />
+    <Content Include="images\Deyaar Tria  800x600 px 8.png" />
+    <Content Include="images\fire.svg" />
+    <Content Include="images\Get a free quotation.svg" />
+    <Content Include="images\Group 13461%402x.png" />
     <Content Include="images\Group13461%402x.png" />
     <Content Include="images\Group13461.png" />
+    <Content Include="images\internet.svg" />
+    <Content Include="images\landing.png" />
+    <Content Include="images\logo.svg" />
+    <Content Include="images\LS-Snagging-3%402x.png" />
+    <Content Include="images\LS-Snagging-3.png" />
+    <Content Include="images\mail small.svg" />
+    <Content Include="images\mail.svg" />
+    <Content Include="images\map.svg" />
+    <Content Include="images\Path 4892.svg" />
+    <Content Include="images\Polygon 5.svg" />
+    <Content Include="images\Rectangle 3857.svg" />
+    <Content Include="images\Rectangle 3876.svg" />
+    <Content Include="images\Rectangle 3878.svg" />
+    <Content Include="images\Rectangle 3881.svg" />
+    <Content Include="images\Rectangle 3884-1.svg" />
+    <Content Include="images\Rectangle 3884.svg" />
+    <Content Include="images\Rectangle 3885.svg" />
+    <Content Include="images\Rectangle 3887.svg" />
+    <Content Include="images\s logo.PNG" />
+    <Content Include="images\Search.svg" />
+    <Content Include="images\whatsapp small.svg" />
+    <Content Include="images\whatsapp.svg" />
+    <Content Include="images\WZ_Exterior_Render_CGI_06_CMYK%402x.png" />
+    <Content Include="images\WZ_Exterior_Render_CGI_06_CMYK.png" />
     <Content Include="js\bootstrap.bundle.js" />
     <Content Include="js\bootstrap.bundle.min.js" />
     <Content Include="js\bootstrap.esm.js" />
@@ -395,6 +444,7 @@
     <Content Include="js\bootstrap1.bundle.min.js" />
     <Content Include="js\jquery.slim.min.js" />
     <Content Include="js\popper.min.js" />
+    <Content Include="js\Propertydetailsscript.js" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -518,6 +568,8 @@
     <Content Include="Views\Home\Index - Copy.cshtml" />
     <Content Include="Views\Shared\_Enquire.cshtml" />
     <Content Include="Views\Home\Properties.cshtml" />
+    <Content Include="Views\PropertyDetails\Index.cshtml" />
+    <Content Include="Views\Shared\Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

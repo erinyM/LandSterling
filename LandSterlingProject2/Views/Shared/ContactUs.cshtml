@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <div class="d-flex inputs">
                                     <div class="one">
-                                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                                   t      @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
                                         <div style="color:red !important">
                                             @Html.ValidationMessageFor(model => model.FullName, null, new { @class = "text-danger" })
                                         </div>
@@ -91,18 +91,3 @@
         </div>
     </div>
 </div>
-<script>
-    function validateContactUs() {
-    $.ajax({
-        dataType: "Html",
-        type: "POST",
-        url: '@Url.Action("ContactUs","Home")',
-        data: { id: num },
-        success: function (a) {
-            // Replace the div's content with the page method's return.
-            alert("success");
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            alert(errorThrown)}
-    });
-}
