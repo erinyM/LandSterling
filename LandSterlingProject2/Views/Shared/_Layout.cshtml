@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title -Land Sterling</title>
+    @*Styles.Render("~/Content/css")*@
+    @Styles.Render("~/css")
+    @*@Scripts.Render("~/bundles/modernizr")*@
+    @Scripts.Render("~/js")
+    @Scripts.Render("~/bundles/jquery1")
+    @Scripts.Render("~/bundles/popper1")
+    @Scripts.Render("~/bundles/bootstrap1")
+    <script src="@Url.Content("~/js/jquery.slim.min.js")"></script>
+    <script src="@Url.Content("~/js/popper.min.js")"></script>
+    <script src="@Url.Content("~/js/bootstrap1.bundle.min.js")"></script>
+    @RenderSection("scripts", required: false)
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    @*<meta name="viewport" content="width=device-width, initial-scale=1.0" />*@
+    <title>LAND STERLING</title>
+    <link rel="icon" href="images/s logo.PNG" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/fontawesome.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Beau+Rivage&family=Big+Shoulders+Display:wght@700&family=Lobster&family=Montserrat:wght@200;300;400;500;600;700;800&family=Oswald:wght@300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100&family=Rubik+Moonrocks&family=Work+Sans:wght@200&display=swap"
+          rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg pt-2 pb-2 sticky-top bg-white">
+        <div class="container">
+            <a class="navbar-logo" href="#">
+                <img class="img-fluid" src="images/logo.svg" alt="" />
+            </a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <i class="Toggle fa-solid fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mb-2 mb-lg-0 lg-ps-5">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Buy</a>
+                    </li>
+                    <li class="nav-item pe-2">
+                        <a class="nav-link" href="#">Sell your property</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex align-items-center" href="#">
+                            hot deals
+                            <img class="ms-2 icon" src="images/fire.svg" alt="svg" />
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Properties</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                </ul>
+                <div class="nav-icon d-flex lg-ps-4 lg-pe-4">
+                    <li class="lg-ps-4 sm-p-2">
+                        <img class="icon" src="images/call small.svg" alt="icon" />
+                    </li>
+                    <li class="lg-ps-4 sm-p-2">
+                        <img class="icon" src="images/whatsapp small.svg" alt="icon" />
+                    </li>
+                    <li class="lg-ps-4 sm-p-2">
+                        <img class="icon" src="images/mail small.svg" alt="icon" />
+                    </li>
+                </div>
+                <div class="log-in">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"
+                           href="#"
+                           role="button"
+                           data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            log in <img src="images/contacts.svg" alt="" />
+                        </a>
+                        <ul class="dropdown-menu bg-white">
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    log in
+                                    <img class="ps-2" src="images/contacts.svg" alt="" />
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    sign-up
+                                    <img class="ps-2" src="images/contacts.svg" alt="" /><i class="fa-solid fa-plus"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+            </div>
+        </div>
+    </nav>
+ 
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="footer p-5">
+                <div class="container">
+                    <img src="images/logo.svg" alt="" />
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-12 first-column">
+                            <div class="text">
+                                <h4>get in toutch</h4>
+                                <p>
+                                    Feel free to call and discuss about your property +971 4 582
+                                    6135
+                                </p>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <h4>meet us</h4>
+                            <p>
+                                Office 227 Al Shafar Investment Building Sheikh Zayed Road, PO Box
+                                390984 Dubai, United Arab Emirates
+                            </p>
+                        </div>
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <h4>get the latest updates</h4>
+                            <p>
+                                Subscribe to our newsletters and be the first to know about what's
+                                the latest in the real estate market.
+                            </p>
+                            <input type="text" placeholder="Name" />
+                            <br />
+                            <input type="text" placeholder="Email" />
+                            <p>
+                                By clicking subscribe, you agree to our Terms of Use and Privacy
+                                Policy
+                            </p>
+                            <input type="submit" name="submit" id="" />
+                        </div>
+                    </div>
+                    <div class="icons">
+                        <img src="images/mail.svg" alt="" />
+                        <img src="images/call.svg" alt="" />
+                        <img src="images/internet.svg" alt="" />
+                        <img src="images/whatsapp.svg" alt="" />
+                    </div>
+                    <hr />
+                    <div class="last-text d-flex">
+                        <p>© 2022 Land Sterling Co. All Rights Reserved.</p>
+                        <p>Terms & Conditions Privacy | Cookies Policy</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @*@Scripts.Render("~/bundles/jquery1")
+        @Scripts.Render("~/bundles/popper1")
+        @Scripts.Render("~/bundles/bootstrap1")
+        <script src="@Url.Content("~/js/jquery.slim.min.js")"></script>
+        <script src="@Url.Content("~/js/popper.min.js")"></script>
+        <script src="@Url.Content("~/js/bootstrap1.bundle.min.js")"></script>
+        @RenderSection("scripts", required: false)*@
+    <script src="~/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/assets/js/main.js"></script>
+    <script src="jquery.js"></script>
+    <script src="js/all.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="blugins.js"></script>
+</body>
+</html>

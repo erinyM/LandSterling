@@ -1,0 +1,285 @@
+﻿@inherits System.Web.Mvc.WebViewPage
+<!-- Sub banner start -->
+<div class="sub-banner">
+    <div class="container">
+        <div class="breadcrumb-area">
+            <span  id="header">@{@Html.Raw(ViewBag.Code != null&& ViewBag.Code != "" ? ViewBag.Code : "Search Results")}</span>
+            <ul class="breadcrumbs">
+                <li><a href="~/Home/Index">Home</a></li>
+                <li class="active">@{@Html.Raw(ViewBag.Code != null && ViewBag.Code != "" ? ViewBag.Code : "Search Results")}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sub Banner end -->
+<!-- Properties section body start -->
+<div class="properties-section-body content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="sidebar-right">
+                    <!-- Advanced search start -->
+                    <div class="widget advanced-search">
+                        <h3 class="sidebar-title">Advanced Search</h3>
+                        <div class="s-border"></div>
+                        <div class="m-border"></div>
+                        <form id="frmSearch" method="GET" action="~/Home/Properties">
+                            <div class="row">
+                                <!--<-->@*div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <select class="selectpicker search-fields" name="SortBy">
+                    <option @if (ViewBag.SortBy == "Default Order") { @Html.Raw("selected=\"selected\"") }>Default Order</option>
+                    <option @if (ViewBag.SortBy == "Price: High to Low") { @Html.Raw("selected=\"selected\"") }>Price: High to Low</option>
+                    <option @if (ViewBag.SortBy == "Price: Low to High") { @Html.Raw("selected=\"selected\"") }>Price: Low to High</option>
+                    <option @if (ViewBag.SortBy == "Newest Properties") { @Html.Raw("selected=\"selected\"") }>Newest Properties</option>
+                    <option @if (ViewBag.SortBy == "Oldest Properties") { @Html.Raw("selected=\"selected\"") }>Oldest Properties</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <select class="selectpicker search-fields" name="code">
+                    <option>Developer</option>
+                    @for (int i = 0; i < ViewBag.Developers.Length; i++)
+                    {
+                        <option @if (ViewBag.Code == ViewBag.Developers[i].Name) { @Html.Raw("selected=\"selected\"") }>@{@Html.Raw(ViewBag.Developers[i].Name)}</option>
+                    }
+                </select>
+            </div>
+        </div>*@
+                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                <select class="selectpicker search-fields one" name="PropertyType">
+                                    <option>Property Type</option>
+                                    @if (ViewBag.eUnitCategory_Masters != null)
+                                    {
+                                        foreach (var item in ViewBag.eUnitCategory_Masters)
+                                        {
+                                            <option style="display:inline"><b>@item.Unit_Category</b></option>
+
+                                        }
+                                    }
+                                </select>
+                                            </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <select class="selectpicker search-fields" name="ProjectName">
+                                            <option>Project</option>
+                                            @for (int i = 0; i < ViewBag.ProjectNameList.Length; i++)
+                                            {
+                                                <option @if (ViewBag.ProjectName == ViewBag.ProjectNameList[i].Name) { @Html.Raw("selected=\"selected\"") }>@{@Html.Raw(ViewBag.ProjectNameList[i].Name)}</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <select class="selectpicker search-fields" name="Location">
+                                            <option>Enter Location</option>
+                                            @for (int i = 0; i < ViewBag.Cities.Length; i++)
+                                            {
+                                                <option @if (ViewBag.Location == ViewBag.Cities[i].Name) { @Html.Raw("selected=\"selected\"") }>@{@Html.Raw(ViewBag.Cities[i].Name)}</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            @if (ViewBag.PropertyType != "Project")
+                            {
+                            <div class="row">
+                                @*<div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <select class="selectpicker search-fields" name="AnyStatus">
+                                            <option @if (ViewBag.AnyStatus == "Rent or Buy" || ViewBag.AnyStatus == "Any Status")
+                                            { @Html.Raw("selected=\"selected\"") }>Rent or Buy</option>
+                                            <option @if (ViewBag.AnyStatus == "For Sale")
+                                            { @Html.Raw("selected=\"selected\"") }>For Sale</option>
+                                            <option @if (ViewBag.AnyStatus == "For Rent")
+                                            { @Html.Raw("selected=\"selected\"") }>For Rent</option>
+                                        </select>
+                                    </div>
+                                </div>*@
+                                @*<div class="col-lg-3 col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <select class="selectpicker search-fields" name="Rooms">
+                                            <option>Rooms</option>
+                                            @for (int i = 0; i < ViewBag.RoomList.Length; i++)
+                                            {
+                                                <option @if (ViewBag.Rooms == ViewBag.RoomList[i].Name)
+                                                { @Html.Raw("selected=\"selected\"") }>@{@Html.Raw(ViewBag.RoomList[i].Name)}</option>
+    }
+                                        </select>
+                                    </div>
+                                </div>*@
+                                <div class="col-lg-3 col-md-6 col-sm-12">
+                                
+                                            <div class="form-group">
+                                                <input value="@{@Html.Raw((!string.IsNullOrEmpty(ViewBag.min_price)) ? int.Parse(ViewBag.min_price) : "")}" type="number" min="0" max="100000000" style="padding-left: 10px;font-size: 15px;color: #545454 !important" name="min_price" placeholder="Price from" class="search-fields bootstrap-select" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <input value="@{@Html.Raw((!string.IsNullOrEmpty(ViewBag.max_price)) ? int.Parse(ViewBag.max_price) : "")}" type="number" min="0" max="100000000" style="padding-left: 10px;font-size: 15px;color: #545454 !important" name="max_price" placeholder="Price to" class="search-fields bootstrap-select" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <input value="@{@Html.Raw((!string.IsNullOrEmpty(ViewBag.min_area)) ? int.Parse(ViewBag.min_area) : "")}" type="number" min="0" max="1000" style="padding-left: 10px;font-size: 15px;color: #545454 !important" name="min_area" placeholder="Area from" class="search-fields bootstrap-select" />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-6 col-sm-12">
+                                            <div class="form-group">
+                                                <input value="@{@Html.Raw((!string.IsNullOrEmpty(ViewBag.max_area)) ? int.Parse(ViewBag.max_area) : "")}" type="number" min="0" max="1000" style="padding-left: 10px;font-size: 15px;color: #545454 !important" name="max_area" placeholder="Area to" class="search-fields bootstrap-select" />
+                                            </div>
+                                        </div>
+
+                            </div>
+                            }
+                            <div class="row">
+                                <div class="form-group">
+                                    <input id="TargetPage" name="TargetPage" type="hidden" value="@{@Html.Raw(ViewBag.TargetPage)}" />
+                                </div>
+                                <div class="form-group">
+                                    <input id="PropertyType" name="PropertyType" type="hidden" value="@{@Html.Raw(ViewBag.PropertyType)}" />
+                                </div>
+                                <input id="LastPage" name="LastPage" type="hidden" value="@{@Html.Raw((ViewBag.PageList == null || ViewBag.PageList.Count <= 1) ? ViewBag.TargetPage : (int.Parse(ViewBag.PageList[ViewBag.PageList.Count - 1]) - 1).ToString())}" />
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5"></div>
+                                <div class="col-lg-2 col-md-2 col-sm-12">
+                                    <div class="form-group mb-0">
+                                        <button class="search-button">Search</button>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-5"></div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @if (ViewBag.Properties != null && ViewBag.Properties.Count > 0)
+            {
+                <div class="col-lg-12 col-md-12">
+                    <div class="row">
+                        @for (int i = 0; i < ViewBag.Properties.Count; i++)
+                        {
+                            if (ViewBag.Properties[i].PropertyType == "Unit")
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="property-box" onclick="OnUnitClick(@{@Html.Raw(ViewBag.Properties[i].RecordId)})">
+                                        <div class="property-thumbnail">
+                                            <a href="~/Home/PropertyDetails?PropertyType=Unit&Id=@{@Html.Raw(ViewBag.Properties[i].RecordId)}" class="property-img">
+                                                <div class="listing-badges">
+                                                    <span class="tag">@{@Html.Raw(ViewBag.Properties[i].Type)}</span>
+                                                </div>
+                                                <div class="price-box"><span>AED @{@Html.Raw(ViewBag.Properties[i].Price)}</span></div>
+                                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Properties[i].ImagePath1)}" alt="freemyip.com/@{@Html.Raw(ViewBag.Properties[i].Name)}">
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <h1 class="title">
+                                                <a href="~/Home/PropertyDetails?PropertyType=Unit&Id=@{@Html.Raw(ViewBag.Properties[i].RecordId)}">@{@Html.Raw(ViewBag.Properties[i].Name)}</a>
+                                            </h1>
+
+                                            <div class="location">
+                                                <a href="~/Home/PropertyDetails?PropertyType=Unit&Id=@{@Html.Raw(ViewBag.Properties[i].RecordId)}">
+                                                    <i class="flaticon-pin"></i>@{@Html.Raw(ViewBag.Properties[i].Location)}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <ul class="facilities-list clearfix">
+                                            @if (ViewBag.Properties[i].Developer !="")
+                                            {
+                                                <li>
+                                                    <span>Developer</span><span class="NumFont">@{@Html.Raw(ViewBag.Properties[i].Developer)}</span>
+                                                </li>
+                                            }
+                                                <li>
+                                                    <span>Area</span><span class="NumFont">@{@Html.Raw(ViewBag.Properties[i].Size)} SQ.FT</span>
+                                                </li>
+                                                @if (ViewBag.Properties[i].Rooms != "0")
+                                                {
+                                                    <li>
+                                                        <span>Rooms</span><span class="NumFont"> @{@Html.Raw(ViewBag.Properties[i].Rooms)}</span>
+                                                    </li>
+
+                                                }
+                                                @if (ViewBag.Properties[i].Floor != "0")
+                                                {
+                                                    <li>
+                                                        <span>Floor</span><span class="NumFont"> @{@Html.Raw(ViewBag.Properties[i].Floor)}</span>
+                                                    </li>
+                                                }
+                                            </ul>
+                                    </div>
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="property-box" onclick="OnProjectClick(@{@Html.Raw(ViewBag.Properties[i].RecordId)})">
+                                        <div class="property-thumbnail">
+                                            <a href="~/Home/PropertyDetails?PropertyType=Project&Id=@{@Html.Raw(ViewBag.Properties[i].RecordId)}" class="property-img">
+                                                <div class="listing-badges">
+                                                    <span class="tag">@{@Html.Raw(ViewBag.Properties[i].Developer)}</span>
+                                                </div>
+                                                <div class="price-box"><span>Starting (@{@Html.Raw(ViewBag.Properties[i].Price)} AED, @{@Html.Raw(ViewBag.Properties[i].Size)} SQ.FT)</span></div>
+                                                <img class="d-block w-100" src="@{@Html.Raw(ViewBag.Properties[i].ImagePath1)}" alt="freemyip.com/@{@Html.Raw(ViewBag.Properties[i].Name)}">
+                                            </a>
+                                        </div>
+                                        <div class="detail">
+                                            <h1 class="title">
+                                                <a href="~/Home/PropertyDetails?PropertyType=Project&Id=@{@Html.Raw(ViewBag.Properties[i].RecordId)}">@{@Html.Raw(ViewBag.Properties[i].Name)}</a>
+                                            </h1>
+
+                                            <div class="location">
+                                                <a href="~/Home/PropertyDetails?PropertyType=Project&Id=@{@Html.Raw(ViewBag.Properties[i].RecordId)}">
+                                                    <i class="flaticon-pin"></i>@{@Html.Raw(ViewBag.Properties[i].Location)}
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                    </div>
+                    <!-- Page navigation start -->
+                    <div class="pagination-box hidden-mb-45 text-center">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link" onclick="PrevClick();">Prev</a>
+                                </li>
+                                @for (int i = 0; i < ViewBag.PageList.Count; i++)
+                                {
+                                    <li class="page-item"><a class="page-link @{@Html.Raw(!ViewBag.PageList[i].StartsWith(".") && (ViewBag.TargetPage + 1 == int.Parse(ViewBag.PageList[i])) ? "active" : "")}" onclick="PageClick(@{@Html.Raw(ViewBag.PageList[i])});">@{@Html.Raw(ViewBag.PageList[i])}</a></li>
+                                }
+                                <li class="page-item">
+                                    <a class="page-link" onclick="NextClick();">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+    }
+            else
+            {
+                    <div class="col-lg-12 col-md-12">
+                        <div class="row">
+                            <spn class="alert-warning text-center" style="padding:50px; border-radius:20px;">Sorry there are no results found matching your search</spn>
+                        </div>
+                    </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<!-- Properties section body end -->
