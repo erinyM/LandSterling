@@ -108,6 +108,10 @@ html {
 .navbar-toggler:hover {
   box-shadow: 3px 5px 8px grey;
 }
+.image1{
+    height:210px;
+    width:100%;
+}
 /* nav */
 /* landing */
 .landing {
@@ -136,7 +140,7 @@ html {
   position: absolute;
   padding: 20px;
   width: 570px;
-  top: 347px;
+  top: 247px;
   left: -55%;
   background-color: white;
   display: flex;
@@ -144,6 +148,7 @@ html {
   border-radius: 10px;
   box-shadow: 3px 2px 20px black;
   transition: 1.5s;
+  margin-bottom:100px;
 }
 
 .landing-card h4 {
