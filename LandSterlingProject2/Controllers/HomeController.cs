@@ -1,5 +1,6 @@
 ﻿using LandSterlingProject2.Helpers;
 //using LandSterlingProject2.Models;
+//using LandSterlingProject2.Models;
 using LandSterlingProject2.Models.models_ado;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json.Linq;
@@ -63,7 +64,7 @@ namespace LandSterlingProject2.Controllers
                      //   Record_Id = DBT.TBL.Rows[i]["Record_Id"].ToString(),
                     };
                 }
-                ViewBag.eUnitCategory_Masters = tbProperty_Masters;
+                ViewBag.tbProperty_Masters = tbProperty_Masters;
             }
             DBT = new DataBaseTools();
             ViewBag.DeveloperCount = 0;
@@ -119,7 +120,7 @@ namespace LandSterlingProject2.Controllers
             ViewBag.tbTestimonialsList = tbTestimonialsList;
 
             DBT = new DataBaseTools();
-            DBT.CMD.CommandText = "  select top 50 u.Record_Id,pm.Property_No,u.Property_Name+', Ref# '+u.Ref_No as Name,U.Floor,Replace(Replace((select top 1 Url from tbUnit_Image  ui where ui.Ref_No=u.Ref_No order by Record_Id asc),'\','/'),'C:/inetpub/wwwroot/CRM/','https://crm.landsterling.belsio.io/') ImagePath1, Replace(Replace(U.Unit_Class,'Rent','For Rent'),'Buy','For Sale') as Type,pm.City+', '+pm.Community_No as Location,pm.Community_No as Address,U.Created_On,pm.Developer,replace(u.Total_Value,'.00','') as Price,ROUND(REPLACE(u.Total_Area,'.00',''),0) as Size,u.Bedrooms as Rooms,u.Floor from tbUnit_Master u,tbProperty_Master pm where pm.Property_No=u.Property_No and u.PublishStatus='yes' order by u.Record_Id desc;";
+            DBT.CMD.CommandText = "  select top 50 u.Record_Id,pm.Property_No,u.Property_Name+', Ref# '+u.Ref_No as Name,U.Floor,Replace(Replace((select top 1 Url from tbUnit_Image  ui where ui.Ref_No=u.Ref_No order by Record_Id asc),'\','/'),'C:/inetpub/wwwroot/CRM/','https://crm.landsterling.belsio.io/') ImagePath1, Replace(Replace(U.Unit_Class,'Rent','For Rent'),'Buy','For Sale') as Type,pm.City+', '+pm.Community_No as Location,pm.Community_No as Address,U.Created_On,pm.Developer,replace(u.Roundoff_Value,'.00','') as Price,ROUND(REPLACE(u.Total_Area,'.00',''),0) as Size,u.Bedrooms as Rooms,u.Floor from tbUnit_Master u,tbProperty_Master pm where pm.Property_No=u.Property_No and u.PublishStatus='yes' order by u.Record_Id desc;";
             DBT.TBL.Load(DBT.CMD.ExecuteReader());
             if (DBT.TBL.Rows.Count > 0)
             {
@@ -169,7 +170,7 @@ namespace LandSterlingProject2.Controllers
             DBT = new DataBaseTools();
             ViewBag.DeveloperCount = 0;
             // DBT.CMD.CommandText = "select distinct City from tbProperty_Master  join tbUnit_Master on tbUnit_Master.Property_No=tbProperty_Master.Property_No  where City not in('Abu Dhabi','Dubai') and PublishStatus='yes'";
-            DBT.CMD.CommandText = "select distinct City from tbProperty_Master   where City not in('Abu Dhabi','Dubai') ";
+            DBT.CMD.CommandText = "select distinct City from tbProperty_Master   where City not in('Abu Dhabi','Dubai','0') ";
 
             DBT.TBL.Load(DBT.CMD.ExecuteReader());
             if (DBT.TBL.Rows.Count > 0)
@@ -223,6 +224,25 @@ namespace LandSterlingProject2.Controllers
                 }
                 ViewBag.DubaiApartments = DubaiApartments;
             }
+            DBT = new DataBaseTools();
+             // DBT.CMD.CommandText = "select distinct Community_No from tbProperty_Master join tbUnit_Master on tbUnit_Master.Property_No=tbProperty_Master.Property_No where City ='Dubai' and Community_No<>'0' and PublishStatus='yes'";
+            DBT.CMD.CommandText = "select distinct Roundoff_Value from tbUnit_Master order by Roundoff_Value asc";
+
+            DBT.TBL.Load(DBT.CMD.ExecuteReader());
+            if (DBT.TBL.Rows.Count > 0)
+            {
+                tbUnit_Master[] pricesList = new tbUnit_Master[DBT.TBL.Rows.Count];
+                ViewBag.prices = pricesList.Length;
+                for (int i = 0; i < pricesList.Length; i++)
+                {
+                    pricesList[i] = new tbUnit_Master
+                    {
+                        Roundoff_Value = DBT.TBL.Rows[i]["Roundoff_Value"].ToString()
+                    };
+                }
+                ViewBag.pricesList = pricesList;
+            }
+
 
             // DBT = new DataBaseTools();
             // ViewBag.DeveloperCount = 0;
@@ -303,15 +323,19 @@ namespace LandSterlingProject2.Controllers
             if (code == "Developer")
                 code = "";
             ViewBag.ProjectNameList = LoadProjects();
+            ViewBag.PropertiesList = LoadProperties();
             ViewBag.RoomList = LoadBedrooms();
             ViewBag.Cities = LoadCities();
             ViewBag.Developers = LoadDevelopers();
             Feature[] features = LoadFeatures();
             ViewBag.FeatureList = features;
-
+            ViewBag.pricesList = LoadPrices();
+            ViewBag.areasList = LoadAreas();
             DataBaseTools DBT = new DataBaseTools();
             string UnitCondition = "";
             string ProjectCondition = "";
+            string PropertyCondition = "";
+            string PropertyCondition1 = "";
             if (code != "")
             {
                 DBT.CMD.Parameters.AddWithValue("@DeveloperCode", code);
@@ -331,23 +355,23 @@ namespace LandSterlingProject2.Controllers
                 ProjectCondition += " and pm.Description=@ProjectName ";
             }
 
-            if (Rooms != "" && Rooms != "Rooms")
+            if (Rooms != "" && Rooms != "Bed & Bath")
             {
                 DBT.CMD.Parameters.AddWithValue("@Rooms", Rooms);
                 UnitCondition += " and u.Bedrooms=@Rooms ";
             }
 
-            if (Location != "" && Location != "Location" && Location != "City")
+            if (Location != "" && Location != "Enter Location" && Location != "City")
             {
                 DBT.CMD.Parameters.AddWithValue("@Location", "%" + Location + "%");
                 UnitCondition += " and pm.City like @Location ";
                 ProjectCondition += " and pm.City like @Location ";
             }
 
-            if (min_area != "")
+            if (min_area != "" && min_area!= "Area (sqft)")
             {
                 DBT.CMD.Parameters.AddWithValue("@min_area", min_area);
-                UnitCondition += " and Cast(REPLACE(u.Total_Area,'.00','') as float)>=@min_area ";
+                UnitCondition += " and Cast(REPLACE(u.Total_Area,'.00','') as float)=@min_area ";
             }
 
             if (max_area != "")
@@ -357,25 +381,34 @@ namespace LandSterlingProject2.Controllers
             }
 
 
-            if (min_price != "")
+            if (min_price != ""&& min_price != "Min Price" && min_price!= "Price (AED)")
             {
                 DBT.CMD.Parameters.AddWithValue("@min_price", min_price);
-                UnitCondition += " and cast(replace(u.Total_Value,'.00','') as float) >= @min_price ";
+                UnitCondition += " and cast(replace(u.Roundoff_Value,'.00','') as float) = @min_price ";
             }
 
-            if (max_price != "")
+            if (max_price != "" && max_price != "Max Price")
             {
                 DBT.CMD.Parameters.AddWithValue("@max_price", max_price);
-                UnitCondition += " and cast(replace(u.Total_Value,'.00','') as float) <= @max_price ";
+                UnitCondition += " and cast(replace(u.Roundoff_Value,'.00','') as float) = @max_price ";
+            }
+            if (PropertyType != "" && PropertyType != "Property Type")
+            {
+                DBT.CMD.Parameters.AddWithValue("@PropertyType", PropertyType);
+                PropertyCondition += " and pm.Property_Type like @PropertyType ";
+                PropertyCondition1+= " where Property_Type like @PropertyType ";
             }
             //Get Count
+            //DBT.CMD.CommandText = @"
+            //                    select count(*) from
+            //                    (
+            //                            (select 'Project' as PropertyType,Property_Type from tbProperty_Master pm where pm.Exp4 = 'yes' " + ProjectCondition + @")
+            //                            Union All 
+            //                            (select 'Unit' as PropertyType ,Property_Type from tbUnit_Master u, tbProperty_Master pm where pm.Property_No = u.Property_No and u.PublishStatus = 'yes' " + UnitCondition + @")
+            //                    ) a " + PropertyCondition + " ";
             DBT.CMD.CommandText = @"
                                 select count(*) from
-                                (
-                                        (select 'Project' as PropertyType from tbProperty_Master pm where pm.Exp4 = 'yes' " + ProjectCondition + @")
-                                        Union All 
-                                        (select 'Unit' as PropertyType from tbUnit_Master u, tbProperty_Master pm where pm.Property_No = u.Property_No and u.PublishStatus = 'yes' " + UnitCondition + @")
-                                ) a where a.PropertyType like @PropertyType ";
+                                        (select 'u.Unit' as PropertyType ,pm.Property_Type from tbUnit_Master u inner join tbProperty_Master pm on pm.Property_No=u.Property_No   where pm.Property_No = u.Property_No and u.PublishStatus = 'yes' and  pm.Exp4 = 'yes'" + UnitCondition +" "+ PropertyCondition + @") a";
             DBT.CMD.Parameters.AddWithValue("@PropertyType", PropertyType);
             DBT.TBL.Load(DBT.CMD.ExecuteReader());
 
@@ -388,18 +421,26 @@ namespace LandSterlingProject2.Controllers
 
             //Get properties
             DBT.TBL = new DataTable();
-            DBT.CMD.CommandText = @" SELECT * from ((select 'Project' as PropertyType,pm.Record_Id, Remarks as Description,pm.Description Name,'0' as Floor,'0' as Property_No,
-                                        Replace(Replace((select top 1 Url from tbProperty_Image  pi where pi.Ref_No=pm.Property_No order by Record_Id asc),'\','/'),'C:/inetpub/wwwroot/CRM/','https://crm.landsterling.belsio.io/') ImagePath1,
-                                        pm.Latitude,pm.Longitude,pm.Exp7 as VideoUrl,'' as Type,pm.City+', '+pm.Community_No as Location,pm.Community_No as Address,pm.CreatedOn as Created_On,pm.Developer,round((select min(cast(replace(u.Total_Value,'.00','') as float))  from tbUnit_Master u where u.Property_No=pm.Property_No ),0) as Price,round((select min(cast(replace(u.Total_Area,'.00','') as float))  from tbUnit_Master u where u.Property_No=pm.Property_No ),0) as Size,
-                                        '' as Rooms
-                                        from tbProperty_Master pm where pm.Exp4='yes'" + ProjectCondition + @")
-                    Union All
+            //DBT.CMD.CommandText = @" SELECT * from ((select 'Project' as PropertyType,Property_Type,pm.Record_Id, Remarks as Description,pm.Description Name,'0' as Floor,'0' as Property_No,
+            //                            Replace(Replace((select top 1 Url from tbProperty_Image  pi where pi.Ref_No=pm.Property_No order by Record_Id asc),'\','/'),'C:/inetpub/wwwroot/CRM/','https://crm.landsterling.belsio.io/') ImagePath1,
+            //                            pm.Latitude,pm.Longitude,pm.Exp7 as VideoUrl,'' as Type,pm.City+', '+pm.Community_No as Location,pm.Community_No as Address,pm.CreatedOn as Created_On,pm.Developer,round((select min(cast(replace(u.Roundoff_Value,'.00','') as float))  from tbUnit_Master u where u.Property_No=pm.Property_No ),0) as Price,round((select min(cast(replace(u.Total_Area,'.00','') as float))  from tbUnit_Master u where u.Property_No=pm.Property_No ),0) as Size,
+            //                            '' as Rooms
+            //                            from tbProperty_Master pm where pm.Exp4='yes'" + ProjectCondition + @")
+            //        Union All
 
-                     (select 'Unit' as PropertyType,u.Record_Id,u.Remarks as Description,u.Property_Name+', Ref# '+u.Ref_No as Name,U.Floor,u.Property_No,
+            //         (select 'Unit' as PropertyType,Property_Type,u.Record_Id,u.Remarks as Description,u.Property_Name+', Ref# '+u.Ref_No as Name,U.Floor,u.Property_No,
+            //         Replace(Replace((select top 1 Url from tbUnit_Image  ui where ui.Ref_No=u.Ref_No order by Record_Id asc),'\','/'),'C:/inetpub/wwwroot/CRM/','https://crm.landsterling.belsio.io/') ImagePath1, 
+            //         pm.Longitude,pm.Latitude,u.Adv_Remarks2 VideoUrl,Replace(Replace(U.Unit_Class,'Rent','For Rent'),'Buy','For Sale') as Type,pm.City+', '+pm.Community_No as Location,pm.Community_No as Address,U.Created_On,pm.Developer,
+            //         cast(replace(u.Roundoff_Value,'.00','') as float) as Price,ROUND(REPLACE(u.Total_Area,'.00',''),0) as Size,u.Bedrooms as Rooms
+            //         from tbUnit_Master u,tbProperty_Master pm where pm.Property_No=u.Property_No and u.PublishStatus='yes'" + UnitCondition + @")) a" + PropertyCondition + "";
+            DBT.CMD.CommandText = @" 
+
+                     select 'Unit' as PropertyType,Property_Type,u.Record_Id,u.Remarks as Description,u.Property_Name+', Ref# '+u.Ref_No as Name,U.Floor,u.Property_No,
                      Replace(Replace((select top 1 Url from tbUnit_Image  ui where ui.Ref_No=u.Ref_No order by Record_Id asc),'\','/'),'C:/inetpub/wwwroot/CRM/','https://crm.landsterling.belsio.io/') ImagePath1, 
                      pm.Longitude,pm.Latitude,u.Adv_Remarks2 VideoUrl,Replace(Replace(U.Unit_Class,'Rent','For Rent'),'Buy','For Sale') as Type,pm.City+', '+pm.Community_No as Location,pm.Community_No as Address,U.Created_On,pm.Developer,
-                     cast(replace(u.Total_Value,'.00','') as float) as Price,ROUND(REPLACE(u.Total_Area,'.00',''),0) as Size,u.Bedrooms as Rooms
-                     from tbUnit_Master u,tbProperty_Master pm where pm.Property_No=u.Property_No and u.PublishStatus='yes'" + UnitCondition + @")) a where PropertyType like @PropertyType";
+                     cast(replace(u.Roundoff_Value,'.00','') as float) as Price,ROUND(REPLACE(u.Total_Area,'.00',''),0) as Size,u.Bedrooms as Rooms
+                     from tbProperty_Master pm inner join tbUnit_Master u
+                        on pm.Property_No=u.Property_No where pm.Property_No=u.Property_No and u.PublishStatus='yes'" + UnitCondition+" "+ PropertyCondition + @"";
             string order = " order by PropertyType asc ";
 
             if (SortBy == "Price: High to Low")
@@ -519,6 +560,76 @@ namespace LandSterlingProject2.Controllers
                 }
             }
             return cities;
+        }
+        private tbUnit_Master[] LoadPrices()
+        {
+            DataBaseTools DBT = new DataBaseTools();
+          
+            // DBT.CMD.CommandText = "select distinct Community_No from tbProperty_Master join tbUnit_Master on tbUnit_Master.Property_No=tbProperty_Master.Property_No where City ='Dubai' and Community_No<>'0' and PublishStatus='yes'";
+            DBT.CMD.CommandText = "select distinct Roundoff_Value from tbUnit_Master order by Roundoff_Value asc";
+
+            DBT.TBL.Load(DBT.CMD.ExecuteReader());
+            tbUnit_Master[] tbUnit_Masters = new tbUnit_Master[DBT.TBL.Rows.Count];
+                    if (DBT.TBL.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < tbUnit_Masters.Length; i++)
+                        {
+                         tbUnit_Masters[i] = new tbUnit_Master
+                            {
+                              Roundoff_Value = DBT.TBL.Rows[i]["Roundoff_Value"].ToString(),
+                             
+                            };
+                        }
+                    }
+                    return tbUnit_Masters;
+          }
+        private tbUnit_Master[] LoadAreas()
+        {
+            DataBaseTools DBT = new DataBaseTools();
+            
+            // DBT.CMD.CommandText = "select distinct Community_No from tbProperty_Master join tbUnit_Master on tbUnit_Master.Property_No=tbProperty_Master.Property_No where City ='Dubai' and Community_No<>'0' and PublishStatus='yes'";
+            DBT.CMD.CommandText = "select distinct Total_Area from tbUnit_Master order by Total_Area asc";
+
+            DBT.TBL.Load(DBT.CMD.ExecuteReader());
+            tbUnit_Master[] areasList = new tbUnit_Master[DBT.TBL.Rows.Count];
+            if (DBT.TBL.Rows.Count > 0)
+            {
+
+                ViewBag.prices = areasList.Length;
+                for (int i = 0; i < areasList.Length; i++)
+                {
+                    areasList[i] = new tbUnit_Master
+                    {
+                        Total_Area = DBT.TBL.Rows[i]["Total_Area"].ToString()
+                    };
+                }
+
+            }
+            return areasList;
+        }
+        private tbProperty_Master[] LoadProperties()
+        {
+            DataBaseTools DBT = new DataBaseTools();
+            DBT = new DataBaseTools();
+            ViewBag.DeveloperCount = 0;
+            DBT.CMD.CommandText = "select distinct Property_Type from tbProperty_Master where Property_Type<>'0'";
+            DBT.TBL.Load(DBT.CMD.ExecuteReader());
+            tbProperty_Master[] tbProperty_Masters = new tbProperty_Master[DBT.TBL.Rows.Count];
+
+            if (DBT.TBL.Rows.Count > 0)
+            {
+                 ViewBag.eUnitCategory_MasterCount = tbProperty_Masters.Length;
+                for (int i = 0; i < tbProperty_Masters.Length; i++)
+                {
+                    tbProperty_Masters[i] = new tbProperty_Master
+                    {
+                        // Unit_Type = DBT.TBL.Rows[i]["Unit_Type"].ToString(),
+                        Property_Type = DBT.TBL.Rows[i]["Property_Type"].ToString(),
+                        //   Record_Id = DBT.TBL.Rows[i]["Record_Id"].ToString(),
+                    };
+                }
+            }
+         return  tbProperty_Masters;           
         }
         private City[] LoadDevelopers()
         {
